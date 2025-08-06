@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <title>Photo Gallery</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .gallery-section {
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+      padding: 0 1rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,43,91,0.10);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 32px rgba(0,43,91,0.18);
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* 모바일 최적화 */
+    @media (max-width: 768px) {
+      .gallery-section {
+        padding: 0 16px;
+        margin: 0 auto 2rem auto;
+      }
+      
+      .gallery-grid {
+        gap: 15px;
+      }
+      
+      .gallery-grid img {
+        border-radius: 10px;
+      }
+      
+      /* 모달 모바일 최적화 */
+      .modal-container {
+        flex-direction: column;
+      }
+      
+      .modal-image-section {
+        flex: none;
+        height: 60vh;
+      }
+      
+      .modal-info-panel {
+        width: 100%;
+        height: 40vh;
+        overflow-y: auto;
+      }
+      
+      .modal-text h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+      
+      .modal-text p {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+      
+      .close {
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+      }
+      
+      /* 맨 위로 버튼 모바일 최적화 */
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .gallery-grid {
+        gap: 12px;
+      }
+      
+      .gallery-grid img {
+        border-radius: 8px;
+      }
+      
+      .modal-image-section {
+        height: 50vh;
+      }
+      
+      .modal-info-panel {
+        height: 50vh;
+        padding: 15px;
+      }
+    }
+    
+    /* 모달 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+    }
+    
+    .modal-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .modal-image-section {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .modal-info-panel {
+      width: 300px;
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: #bbb;
+    }
+    
+    .modal-text {
+      margin-top: 60px;
+    }
+    
+    .modal-text h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .modal-text p {
+      margin: 0 0 10px 0;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #ccc;
+    }
+    
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      pointer-events: none;
+    }
+    
+    .nav-arrow {
+      color: #ccc;
+      font-size: 2rem;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: color 0.3s;
+    }
+    
+    .nav-arrow:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="gallery-section">
+    <h2 style="text-align:center; margin:0.5rem 0 4rem 0; color:#002b5b; font-size: 2.5rem;">Photo Gallery</h2>
+    <div class="gallery-grid">
+      <img src="static/img/1.jpeg" alt="gallery1" onclick="openModal(this.src)">
+      <img src="static/img/2.jpeg" alt="gallery2" onclick="openModal(this.src)">
+      <img src="static/img/3.jpeg" alt="gallery3" onclick="openModal(this.src)">
+      <img src="static/img/4.jpeg" alt="gallery4" onclick="openModal(this.src)">
+      <img src="static/img/5.jpeg" alt="gallery5" onclick="openModal(this.src)">
+      <img src="static/img/6.jpeg" alt="gallery6" onclick="openModal(this.src)">
+      <img src="static/img/7.jpeg" alt="gallery7" onclick="openModal(this.src)">
+      <img src="static/img/8.jpeg" alt="gallery8" onclick="openModal(this.src)">
+      <img src="static/img/9.jpeg" alt="gallery9" onclick="openModal(this.src)">
+    </div>
+    
+    <!-- 모달 -->
+    <div id="imageModal" class="modal">
+      <div class="modal-container">
+        <div class="modal-image-section">
+          <img class="modal-content" id="modalImage">
+          <div class="modal-nav">
+            <span class="nav-arrow left-arrow" onclick="previousImage()">&lt;</span>
+            <span class="nav-arrow right-arrow" onclick="nextImage()">&gt;</span>
+          </div>
+        </div>
+        <div class="modal-info-panel">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <div class="modal-text">
+            <h3>MMDL 연구실</h3>
+            <p>Gyeongkuk National University | 2024-12-19</p>
+            <p>연구실 활동 사진</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 모달 기능
+  let currentImageIndex = 0;
+  const images = [
+    "static/img/1.jpeg",
+    "static/img/2.jpeg",
+    "static/img/3.jpeg",
+    "static/img/4.jpeg",
+    "static/img/5.jpeg",
+    "static/img/6.jpeg",
+    "static/img/7.jpeg",
+    "static/img/8.jpeg",
+    "static/img/9.jpeg"
+  ];
+  
+  function openModal(imgSrc) {
+    document.getElementById('imageModal').style.display = 'block';
+    document.getElementById('modalImage').src = imgSrc;
+    currentImageIndex = images.indexOf(imgSrc);
+  }
+  
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+  
+  function previousImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    document.getElementById('modalImage').src = images[currentImageIndex];
+  }
+  
+  function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    document.getElementById('modalImage').src = images[currentImageIndex];
+  }
+  
+  // ESC 키로 모달 닫기
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeModal();
+    } else if (event.key === 'ArrowLeft') {
+      previousImage();
+    } else if (event.key === 'ArrowRight') {
+      nextImage();
+    }
+  });
+  
+  // 맨 위로 버튼 기능
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+  
+  // 맨 위로 스크롤 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+
+<!-- 맨 위로 버튼 -->
+<button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+</body>
+</html> 

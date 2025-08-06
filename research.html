@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Research - GKNU MMDL</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .research-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .research-title {
+      text-align: center;
+      color: #002b5b;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      margin-top: -40px;
+    }
+    
+    .research-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .research-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      height: 300px;
+      position: relative;
+    }
+    
+    .research-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .research-content {
+      padding: 30px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .research-image {
+      width: 400px;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    .research-more-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: #002b5b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .research-more-btn:hover {
+      background: #3949ab;
+    }
+    
+    .research-card-title {
+      color: #002b5b;
+      font-size: 1.8rem;
+      margin: 0 0 15px 0;
+      font-weight: bold;
+    }
+    
+    .research-card-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      margin: 0 0 20px 0;
+    }
+    
+    .research-card-description {
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .research-tags {
+      margin-top: 20px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    
+    .research-tag {
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+      .research-container {
+        padding: 0 16px;
+        margin: 20px auto;
+      }
+      
+      .research-card {
+        flex-direction: column;
+        height: auto;
+        min-height: 400px;
+      }
+      
+      .research-image {
+        width: 100%;
+        height: 200px;
+        order: 2;
+      }
+      
+      .research-content {
+        padding: 20px;
+        order: 1;
+      }
+      
+      .research-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+      
+      .research-cards {
+        gap: 20px;
+      }
+      
+      .research-more-btn {
+        position: static;
+        margin-top: 15px;
+        align-self: flex-end;
+      }
+      
+      .research-card-title {
+        font-size: 1.4rem;
+      }
+      
+      .research-card-subtitle {
+        font-size: 1rem;
+      }
+      
+      .research-card-description {
+        font-size: 0.9rem;
+      }
+      
+      .research-tags {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      .research-tag {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+      }
+      
+      /* 맨 위로 버튼 모바일 최적화 */
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .research-card {
+        min-height: 350px;
+      }
+      
+      .research-content {
+        padding: 15px;
+      }
+      
+      .research-image {
+        height: 150px;
+      }
+      
+      .research-card-title {
+        font-size: 1.2rem;
+      }
+      
+      .research-card-subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .research-card-description {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="research-container">
+    <h1 class="research-title">Research Areas</h1>
+    
+    <div class="research-cards">
+      <div class="research-card">
+        <div class="research-content">
+          <div>
+            <h2 class="research-card-title">Deep Learning in Materials & Battery Systems</h2>
+            <p class="research-card-subtitle">머신러닝을 활용한 재료과학 및 배터리 시스템 연구</p>
+            <p class="research-card-description">
+              딥러닝과 머신러닝 기술을 활용하여 재료의 미세구조 분석 및 배터리 시스템의 성능 예측을 수행합니다. 
+              CNN 기반의 이미지 분석과 시계열 데이터 처리를 통해 재료의 기계적 특성과 배터리의 수명을 정확하게 예측하는 기술을 개발합니다.
+            </p>
+            <div class="research-tags">
+              <span class="research-tag">#딥러닝</span>
+              <span class="research-tag">#재료과학</span>
+              <span class="research-tag">#배터리</span>
+              <span class="research-tag">#CNN</span>
+            </div>
+          </div>
+        </div>
+        <img src="static/img/research1.jpeg" alt="Deep Learning Research" class="research-image">
+        <button class="research-more-btn" onclick="location.href='research_detail.html?id=1'">More →</button>
+      </div>
+      
+      <div class="research-card">
+        <div class="research-content">
+          <div>
+            <h2 class="research-card-title">Lightweight Metals Forming & Fracture Modeling</h2>
+            <p class="research-card-subtitle">경량 금속 성형 및 파단 모델링 연구</p>
+            <p class="research-card-description">
+              알루미늄과 마그네슘 합금을 중심으로 한 경량 금속의 성형 공정과 파단 거동을 수치적으로 모델링하고 분석합니다. 
+              정적 및 동적 하중 조건에서의 충돌 안전성과 신뢰성을 평가하는 기술을 개발합니다.
+            </p>
+            <div class="research-tags">
+              <span class="research-tag">#경량금속</span>
+              <span class="research-tag">#성형</span>
+              <span class="research-tag">#파단모델링</span>
+              <span class="research-tag">#안전성</span>
+            </div>
+          </div>
+        </div>
+        <img src="static/img/research2.jpeg" alt="Lightweight Metals Research" class="research-image">
+        <button class="research-more-btn" onclick="location.href='research_detail.html?id=2'">More →</button>
+      </div>
+      
+      <div class="research-card">
+        <div class="research-content">
+          <div>
+            <h2 class="research-card-title">Integrated Metal Forming & Joining Processes</h2>
+            <p class="research-card-subtitle">통합 금속 성형 및 접합 공정 연구</p>
+            <p class="research-card-description">
+              실험적 검증과 수치해석을 결합하여 금속 성형 및 고급 접합 공정을 최적화합니다. 
+              마찰교반용접, 저항점용접 등을 활용한 다중재료 부품의 질량 효율적인 제조 기술을 개발합니다.
+            </p>
+            <div class="research-tags">
+              <span class="research-tag">#금속성형</span>
+              <span class="research-tag">#접합공정</span>
+              <span class="research-tag">#용접</span>
+              <span class="research-tag">#최적화</span>
+            </div>
+          </div>
+        </div>
+        <img src="static/img/research3.jpeg" alt="Metal Forming Research" class="research-image">
+        <button class="research-more-btn" onclick="location.href='research_detail.html?id=3'">More →</button>
+      </div>
+      
+      <div class="research-card">
+        <div class="research-content">
+          <div>
+            <h2 class="research-card-title">Advanced Materials for Extreme Environments</h2>
+            <p class="research-card-subtitle">극한 환경용 고급 재료 연구</p>
+            <p class="research-card-description">
+              고온, 극저온, 수소환경 등 극한 환경에서 사용되는 고급 재료를 개발합니다. 
+              차세대 모빌리티용 초고강도 철강소재와 친환경 합금 설계를 통해 미래 기술 발전에 기여합니다.
+            </p>
+            <div class="research-tags">
+              <span class="research-tag">#극한환경</span>
+              <span class="research-tag">#고급재료</span>
+              <span class="research-tag">#친환경</span>
+              <span class="research-tag">#모빌리티</span>
+            </div>
+          </div>
+        </div>
+        <img src="static/img/research4.jpeg" alt="Advanced Materials Research" class="research-image">
+        <button class="research-more-btn" onclick="location.href='research_detail.html?id=4'">More →</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- 맨 위로 버튼 -->
+<button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+<script>
+  // 맨 위로 버튼 기능
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+  
+  // 맨 위로 스크롤 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>공지사항</title>
+<link href="static/style.css" rel="stylesheet">
+<style>
+  .board-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    position: relative;
+  }
+  
+  .board-container h2 {
+    text-align: center;
+    color: #002b5b;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    margin-top: -20px;
+  }
+  
+  /* 검색 토글 */
+  .search-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    background: #002b5b;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .search-toggle:hover {
+    background: #3949ab;
+    transform: scale(1.1);
+  }
+  
+  /* 검색창 */
+  .search-wrap {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    display: none;
+  }
+  
+  .search-wrap.active {
+    display: flex;
+  }
+  
+  .search-wrap select,
+  .search-wrap input,
+  .search-wrap button {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .search-wrap input {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .search-wrap button {
+    background: #002b5b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .search-wrap button:hover {
+    background: #3949ab;
+  }
+  
+  /* 카드 스타일 */
+  .cards-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    .board-container {
+      padding: 0 16px;
+      margin: 20px auto;
+    }
+    
+    .board-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+    
+    .cards-wrap {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .search-wrap {
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .search-wrap input {
+      min-width: auto;
+    }
+    
+    .search-toggle {
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+    }
+    
+    /* 모달 모바일 최적화 */
+    .modal-card {
+      width: 95%;
+      max-width: none;
+      margin: 10px;
+      max-height: 90vh;
+    }
+    
+    .modal-header {
+      max-height: 40vh;
+    }
+    
+    .modal-header img {
+      max-height: 35vh;
+    }
+    
+    .modal-body {
+      padding: 15px;
+    }
+    
+    .modal-body p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .modal-more-btn {
+      padding: 8px 15px;
+      font-size: 0.85rem;
+    }
+    
+    /* 맨 위로 버튼 모바일 최적화 */
+    .scroll-to-top {
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cards-wrap {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .card-image {
+      height: 180px;
+    }
+    
+    .card-content {
+      padding: 15px;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .card-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+  
+  .card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .card-title {
+    margin: 0 0 10px 0;
+    color: #002b5b;
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+  
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .card-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .card-views {
+    color: #666;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+  
+  .card-views svg {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+  
+  .card-views:hover svg {
+    opacity: 1;
+  }
+  
+  .card-date {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .card-category {
+    background: #002b5b;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+
+  
+  /* 모달 스타일 */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  .modal-card {
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .modal-header {
+    position: relative;
+  }
+  
+  .modal-header {
+    position: relative;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+  
+  /* 모달 이미지 스크롤바 스타일 */
+  .modal-header::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .modal-header::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .modal-header::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .modal-header::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .modal-header h2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    margin: 0;
+    padding: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .hashtags {
+    margin-bottom: 15px;
+  }
+  
+  .hashtags span {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+  }
+  
+  .nickname {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  .modal-more-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: #002b5b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .modal-more-btn:hover {
+    background: #3949ab;
+  }
+  
+  @media (max-width: 768px) {
+    .cards-wrap {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .board-container h2 {
+      font-size: 2rem;
+    }
+    
+    .search-wrap {
+      flex-direction: column;
+    }
+    
+    .search-wrap input {
+      min-width: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cards-wrap {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="board-container">
+    <h2>공지사항</h2>
+    
+    <!-- 검색 토글 아이콘 -->
+    <div id="searchToggle" class="search-toggle">🔍</div>
+    
+    <!-- 검색창 -->
+    <div class="search-wrap" id="searchWrap">
+      <select id="searchType">
+        <option value="title">제목</option>
+        <option value="content">내용</option>
+        <option value="titleContent">제목+내용</option>
+        <option value="category">카테고리</option>
+      </select>
+      <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+      <button id="searchBtn">검색</button>
+      <button id="resetBtn">초기화</button>
+    </div>
+
+    <!-- 카드 리스트 -->
+    <div class="cards-wrap" id="cardsWrap"></div>
+  </div>
+  
+                <!-- 모달 구조 -->
+              <div class="modal" id="modal">
+                <div class="modal-card">
+                  <div class="modal-header" id="modalHeader">
+                    <img id="modalImage" src="" alt="게시글 이미지">
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-close" id="modalClose">&times;</div>
+                  </div>
+                  <div class="modal-body">
+                    <div class="hashtags" id="modalTags"></div>
+                    <div class="nickname" id="modalNick"></div>
+                    <p id="modalContent"></p>
+                    <div class="modal-more-btn" id="modalMoreBtn">More →</div>
+                  </div>
+                </div>
+              </div>
+</main>
+<script>
+  // 공지사항 데이터
+  const notices = [
+    
+    { 
+      id: 1, 
+      title: "2025년 하계 인턴 모집 안내", 
+      date: "2025-07-20", 
+      image: "static/img/notice1.jpeg",
+      category: "모집",
+      content: "2025년 하계 인턴 모집이 시작되었습니다. 재료과학 및 공학 분야에 관심 있는 학부생들의 많은 지원을 바랍니다.",
+      author: "관리자",
+      url: "notice1.html",
+      views: 0
+    },
+    
+    { 
+      id: 2, 
+      title: "신입생 오리엔테이션 일정", 
+      date: "2025-06-15", 
+      image: "static/img/notice2.jpeg",
+      category: "일정",
+      content: "2025년 신입생 오리엔테이션 일정이 확정되었습니다. 자세한 내용은 첨부파일을 참고해주세요.",
+      author: "관리자",
+      url: "notice2.html",
+      views: 0
+    },
+    
+    { 
+      id: 3, 
+      title: "홈페이지 오픈 안내", 
+      date: "2025-05-30", 
+      image: "static/img/notice3.jpeg",
+      category: "안내",
+      content: "MMDL 연구실 홈페이지가 새롭게 오픈되었습니다. 많은 관심과 이용 부탁드립니다.",
+      author: "관리자",
+      url: "notice3.html",
+      views: 0
+    },
+    
+    { 
+      id: 4, 
+      title: "연구실 세미나 일정", 
+      date: "2025-04-15", 
+      image: "static/img/notice4.jpeg",
+      category: "세미나",
+      content: "2025년 4월 연구실 세미나 일정을 안내드립니다. 모든 연구원들의 참석을 바랍니다.",
+      author: "관리자",
+      url: "notice4.html",
+      views: 0
+    },
+    
+    { 
+      id: 5, 
+      title: "논문 제출 마감일 안내", 
+      date: "2025-03-20", 
+      image: "static/img/notice5.jpeg",
+      category: "논문",
+      content: "2025년 상반기 논문 제출 마감일이 다가왔습니다. 마감일을 준수해주시기 바랍니다.",
+      author: "관리자",
+      url: "notice5.html",
+      views: 0
+    },
+    
+    { 
+      id: 6, 
+      title: "연구실 장비 사용 안내", 
+      date: "2025-02-10", 
+      image: "static/img/notice6.jpeg",
+      category: "장비",
+      content: "연구실 장비 사용 시 주의사항을 안내드립니다. 안전한 사용을 위해 반드시 숙지해주세요.",
+      author: "관리자",
+      url: "notice6.html",
+      views: 0
+    },
+    
+    { 
+      id: 7, 
+      title: "학회 참가 신청 안내", 
+      date: "2025-01-25", 
+      image: "static/img/notice7.jpeg",
+      category: "학회",
+      content: "2025년 국제학회 참가 신청을 받고 있습니다. 참가 희망자는 신청서를 제출해주세요.",
+      author: "관리자",
+      url: "notice7.html",
+      views: 0
+    },
+    
+    { 
+      id: 8, 
+      title: "연구비 사용 내역 공지", 
+      date: "2025-01-10", 
+      image: "static/img/notice8.jpeg",
+      category: "연구비",
+      content: "2024년 연구비 사용 내역을 공지합니다. 문의사항이 있으시면 연락주세요.",
+      author: "관리자",
+      url: "notice8.html",
+      views: 0
+    },
+    
+    { 
+      id: 9, 
+      title: "졸업생 취업 현황", 
+      date: "2024-12-20", 
+      image: "static/img/notice9.jpeg",
+      category: "취업",
+      content: "2024년 졸업생들의 취업 현황을 공지합니다. 후배들의 진로 선택에 도움이 되길 바랍니다.",
+      author: "관리자",
+      url: "notice9.html",
+      views: 0
+    },
+    
+    { 
+      id: 10, 
+      title: "겨울방학 연구실 운영", 
+      date: "2024-12-15", 
+      image: "static/img/notice10.jpeg",
+      category: "운영",
+      content: "겨울방학 중 연구실 운영 시간을 안내드립니다. 방학 중에도 연구에 집중할 수 있도록 지원하겠습니다.",
+      author: "관리자",
+      url: "notice10.html",
+      views: 0
+    },
+    
+    { 
+      id: 11, 
+      title: "연구실 규정 개정", 
+      date: "2024-12-01", 
+      image: "static/img/notice11.jpeg",
+      category: "규정",
+      content: "연구실 운영 규정이 개정되었습니다. 새로운 규정을 숙지하고 준수해주시기 바랍니다.",
+      author: "관리자",
+      url: "notice11.html",
+      views: 0
+    }
+    
+  ];
+
+  let filteredNotices = [...notices];
+
+  // 검색 토글 기능
+  const searchToggle = document.getElementById('searchToggle');
+  const searchWrap = document.getElementById('searchWrap');
+  
+  searchToggle.addEventListener('click', () => {
+    searchWrap.classList.toggle('active');
+  });
+
+  // 검색 기능
+  const searchBtn = document.getElementById('searchBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const searchInput = document.getElementById('searchInput');
+  const searchType = document.getElementById('searchType');
+
+  searchBtn.addEventListener('click', performSearch);
+  resetBtn.addEventListener('click', resetSearch);
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') performSearch();
+  });
+
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    const type = searchType.value;
+    
+    if (!query) {
+      filteredNotices = [...notices];
+    } else {
+      filteredNotices = notices.filter(notice => {
+        switch(type) {
+          case 'title':
+            return notice.title.toLowerCase().includes(query);
+          case 'content':
+            return notice.content.toLowerCase().includes(query);
+          case 'titleContent':
+            return notice.title.toLowerCase().includes(query) || 
+                   notice.content.toLowerCase().includes(query);
+          case 'category':
+            return notice.category.toLowerCase().includes(query);
+          default:
+            return false;
+        }
+      });
+    }
+    
+    renderCards();
+  }
+
+  function resetSearch() {
+    searchInput.value = '';
+    searchType.value = 'title';
+    filteredNotices = [...notices];
+    renderCards();
+  }
+
+  // 카드 렌더링
+  function renderCards() {
+    const cardsWrap = document.getElementById('cardsWrap');
+    cardsWrap.innerHTML = '';
+    
+    filteredNotices.forEach(notice => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      
+      card.innerHTML = `
+        <img src="${notice.image}" alt="${notice.title}" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">${notice.title}</h3>
+          <div class="card-meta">
+            <span class="card-date">${notice.date}</span>
+            <div class="card-info">
+              <span class="card-category">${notice.category}</span>
+              <span class="card-views">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+                ${notice.views || 0}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // 카드 클릭 시 모달 열기
+      card.onclick = () => openModal(notice);
+      
+      cardsWrap.appendChild(card);
+    });
+  }
+
+  // 모달 기능
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal(notice) {
+    document.getElementById('modalImage').src = notice.image;
+    document.getElementById('modalTitle').textContent = notice.title;
+    document.getElementById('modalTags').innerHTML = `<span>#${notice.category}</span>`;
+    document.getElementById('modalNick').textContent = `작성자: ${notice.author}`;
+    document.getElementById('modalContent').textContent = notice.content;
+    
+    // More 버튼에 링크 설정
+    const moreBtn = document.getElementById('modalMoreBtn');
+    moreBtn.onclick = () => {
+      location.href = `/board/${notice.url.replace('.html', '')}`;
+    };
+    
+    // 조회수 증가
+    incrementViews(notice.id);
+    
+    modal.style.display = 'block';
+  }
+  
+  // 조회수 증가 함수
+  function incrementViews(noticeId) {
+    fetch(`/admin/notices/${noticeId}/views`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.views !== undefined) {
+        // 현재 공지사항의 조회수 업데이트
+        const notice = notices.find(n => n.id === noticeId);
+        if (notice) {
+          notice.views = data.views;
+          // 카드의 조회수 표시 업데이트
+          updateCardViews(noticeId, data.views);
+        }
+      }
+    })
+    .catch(error => {
+      console.error('조회수 증가 실패:', error);
+    });
+  }
+  
+  // 카드 조회수 업데이트 함수
+  function updateCardViews(noticeId, newViews) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const cardNotice = filteredNotices.find(n => n.id === noticeId);
+      if (cardNotice) {
+        const viewsElement = card.querySelector('.card-views');
+        if (viewsElement) {
+          viewsElement.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+            ${newViews}
+          `;
+        }
+      }
+    });
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // ESC 키로 모달 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // 초기 렌더링
+  renderCards();
+  
+  // 맨 위로 버튼 기능
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+  
+  // 맨 위로 스크롤 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+
+<!-- 맨 위로 버튼 -->
+<button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+</body>
+</html>

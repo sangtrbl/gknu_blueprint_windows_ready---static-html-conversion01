@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <title>Research Detail - GKNU MMDL</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .research-detail-main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px 24px 60px 24px;
+      background: #fff;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      color: #1a237e;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.3s;
+    }
+    .back-btn::before {
+      content: '←';
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    .back-btn:hover {
+      color: #3949ab;
+    }
+    .research-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .research-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    .research-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .research-content {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0,43,91,0.1);
+      border: 1px solid rgba(26, 35, 126, 0.1);
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .section:last-child {
+      margin-bottom: 0;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #1a237e;
+    }
+    .section-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #37474f;
+    }
+    .research-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .research-list li {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .research-list li::before {
+      content: '•';
+      color: #1a237e;
+      font-weight: bold;
+      position: absolute;
+      left: -20px;
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      border-left: 4px solid #1a237e;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .highlight-title {
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+    .publications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .publication-item {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+    }
+    .publication-title {
+      font-weight: 600;
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+    .publication-authors {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .publication-journal {
+      color: #888;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .gallery-caption {
+      padding: 15px;
+      background: white;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .back-to-research-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(26, 35, 126, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .back-to-research-btn::before {
+      content: '←';
+      font-size: 1.2rem;
+    }
+    
+    .back-to-research-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(26, 35, 126, 0.4);
+      background: linear-gradient(135deg, #3949ab 0%, #1a237e 100%);
+    }
+
+    @media (max-width: 768px) {
+      .research-detail-main {
+        padding: 20px 16px 40px 16px;
+      }
+      .research-title {
+        font-size: 2rem;
+      }
+      .research-content {
+        padding: 25px;
+      }
+      .section-title {
+        font-size: 1.3rem;
+      }
+      .section-content {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="research-detail-main">
+  <a href="research.html" class="back-btn">연구 분야로 돌아가기</a>
+  
+  <div class="research-header">
+    <h1 class="research-title" id="researchTitle"></h1>
+    <p class="research-subtitle" id="researchSubtitle"></p>
+  </div>
+  
+  <div class="research-content" id="researchContent">
+    <!-- 내용이 JavaScript로 동적 생성됩니다 -->
+  </div>
+</div>
+
+<a href="research.html" class="back-to-research-btn">Research</a>
+
+<script>
+// 연구 분야 데이터
+const researchData = {
+  1: {
+    title: "Deep Learning in Materials & Battery Systems",
+    subtitle: "머신러닝을 활용한 재료과학 및 배터리 시스템 연구",
+    overview: "본 연구 분야에서는 딥러닝과 머신러닝 기술을 활용하여 재료의 미세구조 분석 및 배터리 시스템의 성능 예측을 수행합니다. CNN 기반의 이미지 분석과 시계열 데이터 처리를 통해 재료의 기계적 특성과 배터리의 수명을 정확하게 예측하는 기술을 개발합니다.",
+    keyAreas: [
+      "CNN 기반 미세구조 특성 추출 및 기계적 특성 예측",
+      "LSTM, TCN을 활용한 리튬이온 배터리 상태 예측",
+      "재료 이미지 데이터의 딥러닝 분석",
+      "배터리 수명 및 성능 예측 모델 개발"
+    ],
+    methodology: "컨볼루션 신경망(CNN)을 활용하여 재료의 미세구조 이미지에서 특성을 추출하고, 이를 기계적 특성과 연관시켜 예측 모델을 구축합니다. 배터리 시스템에서는 시계열 데이터를 처리하는 LSTM(Long Short-Term Memory)과 TCN(Temporal Convolutional Network)을 활용하여 배터리의 상태를 실시간으로 모니터링하고 수명을 예측합니다.",
+    applications: "자동차, 항공우주, 전자기기 등 다양한 분야에서 사용되는 고성능 재료의 설계와 배터리 시스템의 최적화에 적용할 수 있습니다. 특히 전기차 배터리의 수명 예측과 재료의 품질 관리에 중요한 역할을 합니다.",
+    publications: [
+      {
+        title: "CNN-based microstructure analysis for mechanical property prediction",
+        authors: "Wooram Noh, et al.",
+        journal: "Materials Science and Engineering: A"
+      },
+      {
+        title: "Deep learning approaches for battery state-of-health estimation",
+        authors: "Wooram Noh, et al.",
+        journal: "Journal of Power Sources"
+      }
+    ]
+  },
+  2: {
+    title: "Lightweight Metals Forming & Fracture Modeling",
+    subtitle: "경량 금속 성형 및 파단 모델링 연구",
+    overview: "알루미늄과 마그네슘 합금을 중심으로 한 경량 금속의 성형 공정과 파단 거동을 수치적으로 모델링하고 분석합니다. 정적 및 동적 하중 조건에서의 충돌 안전성과 신뢰성을 평가하는 기술을 개발합니다.",
+    keyAreas: [
+      "Al/Mg 합금의 구성 방정식 및 파단 모델링",
+      "정적 및 동적 하중 조건에서의 충돌 안전성 평가",
+      "경량 금속 소재의 성형 공정 최적화",
+      "파단 메커니즘 분석 및 예측"
+    ],
+    methodology: "유한요소법을 기반으로 한 수치해석을 통해 경량 금속의 성형 공정을 시뮬레이션하고, 다양한 하중 조건에서의 파단 거동을 분석합니다. 실험적 검증과 수치해석을 결합하여 정확한 예측 모델을 구축합니다.",
+    applications: "자동차, 항공기, 전자기기 등에서 경량화를 위한 알루미늄과 마그네슘 합금의 성형 공정 최적화와 안전성 평가에 적용됩니다.",
+    publications: [
+      {
+        title: "Constitutive modeling of aluminum alloys for sheet metal forming",
+        authors: "Wooram Noh, et al.",
+        journal: "International Journal of Plasticity"
+      },
+      {
+        title: "Fracture modeling of magnesium alloys under dynamic loading",
+        authors: "Wooram Noh, et al.",
+        journal: "Materials & Design"
+      }
+    ]
+  },
+  3: {
+    title: "Process Optimization for Multi-Material Joining",
+    subtitle: "다중 소재 접합 공정 최적화 연구",
+    overview: "마찰교반용접, 저항점용접 등 첨단 접합 공정의 실험적-수치해석적 최적화를 수행합니다. 금속-복합재 하이브리드 접합부의 공정-구조-특성 관계를 분석하여 최적의 접합 조건을 도출합니다.",
+    keyAreas: [
+      "마찰교반용접 및 저항점용접 공정 최적화",
+      "금속-복합재 하이브리드 접합부 분석",
+      "접합 공정의 수치해석 모델링",
+      "접합부의 기계적 특성 평가"
+    ],
+    methodology: "실험적 방법과 수치해석을 결합하여 접합 공정의 최적 조건을 도출합니다. 접합부의 미세구조 분석과 기계적 특성 평가를 통해 공정-구조-특성 관계를 규명합니다.",
+    applications: "자동차, 항공기, 선박 등에서 다양한 소재를 접합하는 공정에 적용되며, 특히 경량화를 위한 하이브리드 구조물 제작에 중요한 역할을 합니다.",
+    publications: [
+      {
+        title: "Optimization of friction stir welding process parameters",
+        authors: "Wooram Noh, et al.",
+        journal: "Journal of Materials Processing Technology"
+      },
+      {
+        title: "Hybrid metal-composite joint analysis",
+        authors: "Wooram Noh, et al.",
+        journal: "Composites Part B: Engineering"
+      }
+    ]
+  },
+  4: {
+    title: "Hybrid Structural Design for Transportation",
+    subtitle: "교통수단용 하이브리드 구조 설계 연구",
+    overview: "알루미늄과 탄소섬유강화플라스틱(CFRP)을 결합한 경량 하이브리드 구조물의 역학 기반 설계를 수행합니다. 시뮬레이션과 설계를 통합하여 차세대 교통수단에 적용할 수 있는 최적의 구조를 개발합니다.",
+    keyAreas: [
+      "알루미늄-CFRP 하이브리드 구조 설계",
+      "경량화를 위한 구조 최적화",
+      "시뮬레이션 기반 설계 방법론",
+      "교통수단용 구조물의 성능 평가"
+    ],
+    methodology: "유한요소 해석과 최적화 알고리즘을 활용하여 하이브리드 구조물의 설계를 수행합니다. 구조적 성능과 경량화를 동시에 만족하는 최적 설계를 도출합니다.",
+    applications: "전기차, 항공기, 고속철도 등 차세대 교통수단의 경량화와 성능 향상에 적용되며, 친환경 운송 시스템 구축에 기여합니다.",
+    publications: [
+      {
+        title: "Design optimization of aluminum-CFRP hybrid structures",
+        authors: "Wooram Noh, et al.",
+        journal: "Composite Structures"
+      },
+      {
+        title: "Simulation-based design for transportation applications",
+        authors: "Wooram Noh, et al.",
+        journal: "Transportation Research Part C"
+      }
+    ]
+  }
+};
+
+// 페이지 로드 시 데이터 표시
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+  const data = researchData[id];
+  
+  if (!data) {
+    document.getElementById('researchContent').innerHTML = '<p>연구 분야를 찾을 수 없습니다.</p>';
+    return;
+  }
+  
+  // 헤더 정보 설정
+  document.getElementById('researchTitle').textContent = data.title;
+  document.getElementById('researchSubtitle').textContent = data.subtitle;
+  
+
+  
+  // 내용 생성
+  const content = `
+    <div class="section">
+      <h2 class="section-title">연구 개요</h2>
+      <div class="section-content">
+        <p>${data.overview}</p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">주요 연구 분야</h2>
+      <div class="section-content">
+        <ul class="research-list">
+          ${data.keyAreas.map(area => `<li>${area}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">연구 방법론</h2>
+      <div class="section-content">
+        <p>${data.methodology}</p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">응용 분야</h2>
+      <div class="section-content">
+        <p>${data.applications}</p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">주요 논문</h2>
+      <div class="section-content">
+        <div class="publications-grid">
+          ${data.publications.map(pub => `
+            <div class="publication-item">
+              <div class="publication-title">${pub.title}</div>
+              <div class="publication-authors">${pub.authors}</div>
+              <div class="publication-journal">${pub.journal}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('researchContent').innerHTML = content;
+});
+</script>
+</body>
+</html> 

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <title>Publications - MMDL</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .publication-item {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+    }
+    .publication-item:first-child {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+    
+    .publication-content {
+      flex: 1;
+    }
+    
+    .publication-image {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px solid white;
+      flex-shrink: 0;
+    }
+    
+    /* 모바일 최적화 */
+    @media (max-width: 768px) {
+      .publication-item {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .publication-content {
+        width: 100%;
+      }
+      
+      .publication-image {
+        width: 200px;
+        height: 120px;
+        order: -1; /* 이미지를 텍스트 위로 이동 */
+      }
+      
+      .section-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .publication-container > div {
+        padding: 20px 16px 40px 16px;
+      }
+      
+      /* 드롭다운 메뉴 모바일 최적화 */
+      .dropdown-menu {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 300px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        z-index: 1001;
+      }
+      
+      .dropdown-menu li a {
+        padding: 16px 20px;
+        font-size: 1rem;
+        text-align: center;
+      }
+      
+      /* 맨 위로 버튼 모바일 최적화 */
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .publication-item {
+        gap: 12px;
+      }
+      
+      .publication-image {
+        width: 180px;
+        height: 110px;
+      }
+      
+      .publication-content div {
+        font-size: 0.95rem !important;
+      }
+      
+      .publication-content a {
+        font-size: 0.8rem !important;
+        word-break: break-all;
+      }
+    }
+    
+    .section-header {
+      margin-top: 60px;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #1a237e;
+    }
+    
+    .section-header h2 {
+      color: #1a237e;
+      font-size: 2rem;
+      margin: 0;
+    }
+    
+
+    
+    .section-anchor {
+      scroll-margin-top: 120px;
+    }
+  </style>
+  <script>
+    // 페이지 로드 시 자동으로 숫자 매기기
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.publication-section');
+      
+      sections.forEach(section => {
+        const publicationItems = section.querySelectorAll('.publication-item');
+        const totalItems = publicationItems.length;
+        
+        publicationItems.forEach((item, index) => {
+          const titleElement = item.querySelector('div:first-child');
+          if (titleElement) {
+            const currentText = titleElement.textContent;
+            // 기존 숫자 제거하고 새로운 숫자 추가
+            const newNumber = totalItems - index;
+            const newText = currentText.replace(/^\[\d+\]\s*/, `[${newNumber}] `);
+            titleElement.textContent = newText;
+          }
+        });
+      });
+      
+      // 상단바 드롭다운의 앵커 링크 처리
+      const dropdownLinks = document.querySelectorAll('.dropdown-menu a[href^="#"]');
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+          <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+        </a>
+        <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="professor.html">PROFESSOR</a></li>
+          <li><a href="students.html">MEMBER</a></li>
+          <li class="dropdown">
+            <a href="#">PUBLICATIONS ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="#scientific">Scientific Publications</a></li>
+              <li><a href="#conferences">International Conferences</a></li>
+              <li><a href="#proceedings">Peer-Reviewed Proceedings</a></li>
+              <li><a href="#domestic">Domestic Peer-Reviewed Journal Articles</a></li>
+            </ul>
+          </li>
+          <li><a href="research.html">RESEARCH</a></li>
+          <li><a href="board.html">NOTICE</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+
+  <main>
+    <div class="publication-container">
+      <div style="max-width: 1200px; margin: 40px auto; padding: 40px 24px 60px 24px;">
+        <div style="text-align: center; margin-bottom: 50px; margin-top: -100px;">
+          <h1 style="color: #1a237e; font-size: 2.5rem; margin-bottom: 20px;">Publications</h1>
+        </div>
+
+        <!-- Scientific Publications Section -->
+        <div id="scientific" class="section-anchor publication-section">
+          <div class="section-header">
+            <h2>Scientific Publications</h2>
+          </div>
+          <div style="margin-bottom: 50px;">
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[3] International Peer-Reviewed Journal Articles Evaluation of adhesion strength for oxide scale grown on low carbon steel</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Jae-Min Lee, Wooram Noh*, Chanyang Kim, Seongsik Lim, Myoung-Gyu Lee</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Mechanics of Advanced Materials and Structures, 30(11), 2258-2268 (2023 May 13)</div>
+                <a href="https://doi.org/10.1080/15376494.2022.2053903" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1080/15376494.2022.2053903</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF= 3.338, top 30%)</div>
+              </div>
+              <img src="static/img/publications1.jpeg" alt="Publication 1" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[2] Probing the Mechanism of Friction Stir Welding with ALE Based Finite Element Simulations and Its Application to Strength Prediction of Welded Aluminum</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Dongjoon Myung, Wooram Noh, Ji-Hoon Kim, Jinhak Kong, Sung-Tae Hong, Myoung-Gyu Lee*</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Metals and Materials International, 27, 650–666 (2021 Apr.)</div>
+                <a href="https://doi.org/10.1007/s12540-020-00901-8" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1007/s12540-020-00901-8</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF=3.451, top 25%)</div>
+              </div>
+              <img src="static/img/publications2.jpeg" alt="Publication 2" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[1] Joint quality of self-piercing riveting (SPR) and mechanical behavior under the frictional effect of various rivet coatings</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Md Abdul Karim, Taek-Eon Jeong, Wooram Noh, Keun-Young Park, Dong-Hyuck Kam, Cheolhee Kim, Dae-Geun Nam, Hudson Jung, Yeong-Do Park*</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Journal of Manufacturing Processes, 58, 466-477 (2020 Oct.)</div>
+                <a href="https://doi.org/10.1016/j.jmapro.2020.08.038" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1016/j.jmapro.2020.08.038</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF=5.684, top 29%)</div>
+              </div>
+              <img src="static/img/publications3.jpeg" alt="Publication 3" class="publication-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- International Conferences Section -->
+        <div id="conferences" class="section-anchor publication-section">
+          <div class="section-header">
+            <h2>International Conferences</h2>
+          </div>
+          <div style="margin-bottom: 50px;">
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[3] October 26-30, 2021,    13th International Conference on the Technology of Plasticity (ICTP 2021), Virtual event, USA</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">C. Kim, W. Noh, M.-G. Lee</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">"Predictive Model for the Strength of Self-piercing Riveted Joints"</div>
+              </div>
+              <img src="static/img/publications4.jpeg" alt="Publication 4" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[2] October 26-30, 2020,    39th International Deep Drawing Research Group Conference (IDDRG 2020), Virtual Conference, Korea</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Wooram Noh, Jae-Min Lee, Jung-Han Song, Myoung-Gyu Lee</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">"Characteristic Feature of Oxide Scale Grown on Hot-rolled Steel Sheet for Analysis of Spallation"</div>
+              </div>
+              <img src="static/img/publications5.jpeg" alt="Publication 5" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[1] June 03-07, 2019,    38th International Deep Drawing Research Group Conference (IDDRG 2019), Enschede, the Netherlands</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">W Noh, K Y Park, C Kim, M G Lee, C Y Jung and J H Song</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">"Numerical evaluation of mechanical performance for self piercing riveted fiber reinforced plastic and metal sheets"</div>
+              </div>
+              <img src="static/img/publications6.jpeg" alt="Publication 6" class="publication-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Peer-Reviewed Proceedings Section -->
+        <div id="proceedings" class="section-anchor publication-section">
+          <div class="section-header">
+            <h2>Peer-Reviewed Proceedings</h2>
+          </div>
+          <div style="margin-bottom: 50px;">
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[4] W. Noh, J.-H. Song*, I.-J. Jang, S.-H. Gwak, C Km, C.-Y. Jung</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">"Numerical and experimental investigation for formability of friction stir welded dissimilar aluminum alloys"</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">IOP Conference Series: Materials Science and Engineering, 418, 012056 - 6 pages (2018)</div>
+              </div>
+              <img src="static/img/publications7.jpeg" alt="Publication 7" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[3] W. Noh, X. Yang, J.-H. Song*, M.-G. Lee</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">"Mechanical Performance of Resistance Spot Welded Steel Sheets"</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Journal of Physics: Conference Series, 1063, 012013 - 4 pages (2018)</div>
+              </div>
+              <img src="static/img/publications8.jpeg" alt="Publication 8" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[2] S. Gwak, I.-J. Jang, J. Lee, W. Noh, M.-G. Lee, J.-H. Song*, C.-Y. Jeong</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">"Influence of Paint Baking Process on the Fracture Initiation of an Al-Mg-Si Alloy Sheet"</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Journal of Physics: Conference Series, 1063, 1063, 012027 - 5 pages (2018)</div>
+              </div>
+              <img src="static/img/publications9.jpeg" alt="Publication 9" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[1] Wooram Noh, Youngwoo Koh, Kwansoo Chung*, Xin Yang</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">"Analysis of failure of resistance spot welding for advanced high strength steel."</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">NUMISHEET 2014: The 9th International Conference and Workshop on Numerical Simulation of 3D Sheet Metal Forming Processes: Part A Benchmark Problems and Results and Part B General Papers, 595-598 (2013)</div>
+              </div>
+              <img src="static/img/publications10.jpeg" alt="Publication 10" class="publication-image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Domestic Peer-Reviewed Journal Articles Section -->
+        <div id="domestic" class="section-anchor publication-section">
+          <div class="section-header">
+            <h2>Domestic Peer-Reviewed Journal Articles</h2>
+          </div>
+          <div style="margin-bottom: 50px;">
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[3] 접촉면적 보정을 통한 Polyimide 기판에 증착된 구리박막의 나노경도 측정</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">함주빈, 김지현, 남서우, 서희창, 노우람, 김영천*</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">마이크로전자 및 패키징학회지, 31(4), 103-108(2024.12)</div>
+                <a href="https://doi.org/10.6117/kmeps.2024.31.4.103" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.6117/kmeps.2024.31.4.103</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(KCI)</div>
+              </div>
+              <img src="static/img/publications11.jpeg" alt="Publication 11" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[2] A Semi-analytical Approach for Numerical Analysis of Residual Stress in Oxide Scale Grown on Hot-rolled Steels</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">전융제, 윤지강, 이재민, 김선호, 김영천, 남승훈, 노우람*</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Transactions of Materials Processing 소성∙가공, 33(3), 200–207(2024.06)</div>
+                <a href="https://doi.org/10.5228/KSTP.2024.33.3.200" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.5228/KSTP.2024.33.3.200</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(KCI)</div>
+              </div>
+              <img src="static/img/publications12.jpeg" alt="Publication 12" class="publication-image">
+            </div>
+
+            <div class="publication-item">
+              <div class="publication-content">
+                <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[1] Tensile and Fatigue Properties of WC-20 wt%Co Cemented Carbides under Microstructural Variations</div>
+                <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">조규섭*, 김경일, 노우람</div>
+                <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Korean Journal of Metals and Materials 대한금속·재료학회지, 2023;61 (12): 933-942.(2023.11.30)</div>
+                <a href="https://doi.org/10.3365/KJMM.2023.61.12.933" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.3365/KJMM.2023.61.12.933</a>
+                <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(SCIE; KCI)</div>
+              </div>
+              <img src="static/img/publications13.jpeg" alt="Publication 13" class="publication-image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- 맨 위로 버튼 -->
+  <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+  
+  <script>
+    // 맨 위로 버튼 기능
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    
+      // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+    
+    // 맨 위로 스크롤 함수
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+</body>
+</html>

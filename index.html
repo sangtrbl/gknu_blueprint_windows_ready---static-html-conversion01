@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INDEX</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .notice-box {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(3px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      width: 450px;
+      height: 245px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .notice-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #002b5b;
+    }
+    
+    .notice-box-header h3 {
+      margin: 0;
+      color: #002b5b;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .notice-plus-btn {
+      background: transparent;
+      color: #002b5b;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .notice-plus-btn:hover {
+      background: rgba(0, 43, 91, 0.1);
+      transform: scale(1.1);
+    }
+    
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    
+    /* 새로운 홈페이지 레이아웃 */
+    .home-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      min-height: 80vh;
+    }
+    
+    /* 왼쪽 섹션 */
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 40px;
+      max-width: 500px;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .title-section {
+      margin-bottom: 40px;
+    }
+    
+    .main-title {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #ff6b35;
+      margin: 0;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    
+    .sub-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+      line-height: 1.3;
+      margin-bottom: 30px;
+    }
+    
+    .lyrics-text {
+      color: white;
+      line-height: 1.7;
+      font-size: 1.1rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    .lyrics-text p {
+      margin-bottom: 15px;
+    }
+    
+    .lyrics-text::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .lyrics-text::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    .lyrics-text::-webkit-scrollbar-thumb {
+      background: rgba(255, 107, 53, 0.5);
+      border-radius: 3px;
+    }
+    
+    .lyrics-text::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 107, 53, 0.7);
+    }
+    
+    /* 중앙 섹션 */
+    .center-section {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      opacity: 1;
+      transform: none;
+    }
+    
+
+    
+    .plasma-orb {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #ff6b9d, #c44569, #8b5cf6);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        0 0 50px rgba(255, 107, 157, 0.6),
+        0 0 100px rgba(139, 92, 246, 0.4),
+        inset 0 0 50px rgba(255, 255, 255, 0.1);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .electric-discharges {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, #ff6b9d, transparent);
+      animation: discharge 2s ease-in-out infinite;
+    }
+    
+    .electric-discharges::before,
+    .electric-discharges::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, #8b5cf6, transparent);
+      animation: discharge 2s ease-in-out infinite 0.5s;
+    }
+    
+    .electric-discharges::before {
+      left: -20px;
+    }
+    
+    .electric-discharges::after {
+      right: -20px;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+    
+    @keyframes discharge {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    /* 오른쪽 섹션 */
+    .right-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 40px;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 1s ease;
+    }
+    
+    .highlights-title {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0 0 30px 0;
+    }
+    
+    .scientific-diagram {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .diagram-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .diagram-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .diagram-box h4 {
+      color: white;
+      font-size: 0.9rem;
+      margin: 0 0 10px 0;
+      font-weight: 500;
+    }
+    
+    .diagram-visual {
+      height: 40px;
+      border-radius: 5px;
+      background: linear-gradient(45deg, #ff6b35, #ff6b9d);
+    }
+    
+    .liquid-solid {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    }
+    
+    .golden-spheres {
+      background: radial-gradient(circle at 30% 50%, #ffd700, #ff6b35);
+    }
+    
+    .enhanced-spheres {
+      background: radial-gradient(circle at 70% 50%, #8b5cf6, #ff6b9d);
+    }
+    
+    .diagram-arrows {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .arrow {
+      position: absolute;
+      width: 2px;
+      height: 20px;
+      background: #ff6b35;
+      transform-origin: top;
+    }
+    
+    .arrow-1 {
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+    }
+    
+    .arrow-2 {
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+    }
+    
+    .arrow-3 {
+      top: 140px;
+      left: 30%;
+      transform: rotate(45deg);
+    }
+    
+    .arrow-4 {
+      top: 140px;
+      left: 70%;
+      transform: rotate(-45deg);
+    }
+    
+    .diagram-caption {
+      color: white;
+      font-size: 0.9rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
+    /* 반응형 디자인 */
+    @media (max-width: 1400px) {
+      .home-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 40px 30px;
+      }
+      
+      .main-title {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 3.2rem;
+        line-height: 1.1;
+      }
+      
+      .sub-title {
+        font-size: 2rem;
+        line-height: 1.3;
+      }
+      
+      .lyrics-text {
+        line-height: 1.6;
+        max-height: 50vh;
+        font-size: 1rem;
+      }
+      
+      .carousel-box {
+        width: 500px;
+        height: 380px;
+      }
+      
+      .carousel-container {
+        height: 340px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+      }
+      
+      .visual-element {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .plasma-orb {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      .home-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 30px 20px;
+      }
+      
+      .main-title {
+        font-size: 2.8rem;
+        line-height: 1.1;
+      }
+      
+      .sub-title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+      }
+      
+      .lyrics-text {
+        line-height: 1.6;
+        max-height: 45vh;
+        font-size: 0.95rem;
+      }
+      
+      .carousel-box {
+        width: 450px;
+        height: 340px;
+      }
+      
+      .carousel-container {
+        height: 300px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+      }
+    }
+    
+    .notice-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .notice-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+    
+    .notice-list::-webkit-scrollbar-thumb {
+      background: rgba(0, 43, 91, 0.5);
+      border-radius: 3px;
+    }
+    
+    .notice-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 43, 91, 0.7);
+    }
+    
+    .notice-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .notice-item:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .notice-title {
+      color: #333;
+      font-weight: 500;
+      flex: 1;
+      line-height: 1.4;
+    }
+    
+    .notice-date {
+      color: #666;
+      font-size: 0.9rem;
+      margin-left: 15px;
+    }
+    
+    .carousel-box {
+      width: 550px;
+      height: 420px;
+      border-radius: 20px;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .carousel-slide.active {
+      opacity: 1;
+    }
+    
+    .carousel-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    
+    .pagination-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0, 43, 91, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(0, 43, 91, 0.2);
+    }
+    
+    .pagination-dot:hover {
+      background: rgba(0, 43, 91, 0.6);
+      transform: scale(1.2);
+    }
+    
+    .pagination-dot.active {
+      background: #002b5b;
+      border-color: #002b5b;
+    }
+    
+    @media (max-width: 768px) {
+      .home-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px 10px;
+      }
+      
+      .main-title {
+        font-size: 2rem;
+        line-height: 1.1;
+      }
+      
+      .sub-title {
+        font-size: 1.4rem;
+        line-height: 1.3;
+      }
+      
+      .lyrics-text {
+        line-height: 1.5;
+        max-height: 40vh;
+        font-size: 0.85rem;
+      }
+      
+      .carousel-box {
+        width: 400px;
+        height: 300px;
+      }
+      
+      .carousel-container {
+        height: 260px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+      }
+      
+      .notice-box {
+        margin: 0 20px;
+        padding: 20px;
+      }
+      
+      .notice-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      
+      .notice-date {
+        margin-left: 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .home-content {
+        padding: 15px 5px;
+      }
+      
+      .main-title {
+        font-size: 1.8rem;
+        line-height: 1.1;
+      }
+      
+      .sub-title {
+        font-size: 1.2rem;
+        line-height: 1.3;
+      }
+      
+      .lyrics-text {
+        line-height: 1.5;
+        max-height: 35vh;
+        font-size: 0.8rem;
+      }
+      
+      .carousel-box {
+        width: 350px;
+        height: 260px;
+      }
+      
+      .carousel-container {
+        height: 220px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+      }
+    }
+  </style>
+</head>
+<body class="home-page">
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="display: flex; justify-content: space-between; margin-top: 60px; gap: 40px;">
+    <!-- 왼쪽 섹션: 제목과 가사 -->
+    <div class="left-section">
+      <div class="title-section">
+        <h1 class="main-title">LIL TECCA</h1>
+        <h2 class="sub-title">BADTIME</h2>
+      </div>
+      <div class="lyrics-text">
+        <p>Mm, oh yeah<br>
+        Okay, ooh, oh yeah, ooh<br>
+        Ooh, oh yeah, uh<br>
+        Mm, oh yeah</p>
+        
+        <p>Know I wanted you, but that was past-tense<br>
+        Done had a lot of hoes just off my accent<br>
+        Carry my chopper, shawty, she a savage<br>
+        Got a sum for you 'cause you ain't average<br>
+        I be on gas fuel, take me out of here<br>
+        Delusional, think I got it 'cause I imagine it<br>
+        Fashion shit, yeah, I mix it, I ain't matchin' it<br>
+        She an addict, but I'd rather say she passionate</p>
+        
+        <p>Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time<br>
+        Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time</p>
+        
+        <p>I hit you when you were just baitin', so what?<br>
+        You hit me when I was so faded, so what?<br>
+        Said fuck everything 'cause I'm jaded, so what?<br>
+        I did all this shit and ain't takin' no luck<br>
+        A lil' part of my life, fell in love with them drugs<br>
+        Not takin' shit back, I love who I'm becoming<br>
+        Fuck that shit, shawty, we could be nothing<br>
+        A bag when I'm in Saudi, coppin' some dumb shit</p>
+        
+        <p>Only want ten out of tens in the spot<br>
+        Only want ten out of tens, where your thot?<br>
+        Quarter-milli', that's on this Richard pocket watch (whoa, whoa, whoa)<br>
+        Still flexin' on niggas 'cause I know they watch</p>
+        
+        <p>I wouldn't lie to you, yeah, ay<br>
+        Know I been tired of you here, ay<br>
+        You been too all in my hair, hey<br>
+        You been too all in my ear, ay<br>
+        You crashin' out over a treesh, ay<br>
+        I don't even know how to steer, ay<br>
+        But I don't know what to believe<br>
+        And I don't even know how to care</p>
+        
+        <p>Know I wanted you, but that was past-tense<br>
+        Done had a lot of hoes just off my accent<br>
+        Carry my chopper, shawty, she a savage<br>
+        Got a sum for you 'cause you ain't average<br>
+        I be on gas fuel, take me out of here<br>
+        Delusional, think I got it 'cause I imagine it<br>
+        Fashion shit, yeah, I mix it, I ain't matchin' it<br>
+        She an addict, but I'd rather say she passionate</p>
+        
+        <p>Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time<br>
+        Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time</p>
+        
+        <p>Check my phone, now the ho say she miss me<br>
+        Smokin' this gas got me feelin' risky<br>
+        When it come to a freak, I ain't even picky<br>
+        Just off this fit, turn her to a pick me<br>
+        I stay with my twin, Mordecai and Rigby (oh my)<br>
+        You worried 'bout Tec, I give a nigga 50<br>
+        What a broke nigga always got?<br>
+        That's somethin' to say, but none of them niggas with me</p>
+        
+        <p>Been blockin' weirdos, I feel like I'm Wemby<br>
+        Know she don't want Louis, she want that new Fendi<br>
+        Can't open the texts in the public no more<br>
+        Ain't no way to predict, like, what she gon' send me?<br>
+        I'm not even doin' the talkin' no more<br>
+        I don't even think that they really gon' get me<br>
+        If I'm not gettin' richer, it do not concern me<br>
+        'Cause every day I feel like that billi' ready</p>
+        
+        <p>Ay, I wouldn't lie to you, yeah, ay<br>
+        Know I been tired of you here, ay<br>
+        You been too all in my hair, hey<br>
+        You been too all in my ear, ay<br>
+        You crashin' out over a treesh, ay<br>
+        I don't even know how to steer, ay<br>
+        But I don't know what to believe<br>
+        And I don't even know how to care</p>
+        
+        <p>Know I wanted you, but that was past-tense<br>
+        Done had a lot of hoes just off my accent<br>
+        Carry my chopper, shawty, she a savage<br>
+        Got a sum for you 'cause you ain't average<br>
+        I be on gas fuel, take me out of here<br>
+        Delusional, think I got it 'cause I imagine it<br>
+        Fashion shit, yeah, I mix it, I ain't matchin' it<br>
+        She an addict, but I'd rather say she passionate</p>
+        
+        <p>Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time<br>
+        Huh, is this a bad time? Remember what happened last time<br>
+        You better off being satisfied, we doin' the same shit every time</p>
+        
+        <p>Mm, uh, ooh<br>
+        Said fuck everything 'cause I'm jaded, so what?<br>
+        I did all this shit and ain't takin' no luck<br>
+        A lil' part of my life, fell in love with them drugs<br>
+        Not takin' shit back, I love who I'm becoming<br>
+        Fuck that shit, shawty, we could be nothing<br>
+        A bag when I'm-, bag when, I'm- bag when I'm-</p>
+      </div>
+    </div>
+    
+    <!-- 중앙 섹션: 캐러셀 -->
+    <div class="center-section" style="display: flex; align-items: center; justify-content: flex-end;">
+      <div class="carousel-box">
+      <div class="carousel-container">
+        <img src="static/img/1.jpeg" alt="carousel1" class="carousel-slide active">
+        <img src="static/img/2.jpeg" alt="carousel2" class="carousel-slide">
+        <img src="static/img/3.jpeg" alt="carousel3" class="carousel-slide">
+        <img src="static/img/4.jpeg" alt="carousel4" class="carousel-slide">
+        <img src="static/img/5.jpeg" alt="carousel5" class="carousel-slide">
+        <img src="static/img/6.jpeg" alt="carousel6" class="carousel-slide">
+        <img src="static/img/7.jpeg" alt="carousel7" class="carousel-slide">
+        <img src="static/img/8.jpeg" alt="carousel8" class="carousel-slide">
+        <img src="static/img/9.jpeg" alt="carousel9" class="carousel-slide">
+      </div>
+      <div class="carousel-pagination">
+        <span class="pagination-dot active" onclick="goToSlide(0)"></span>
+        <span class="pagination-dot" onclick="goToSlide(1)"></span>
+        <span class="pagination-dot" onclick="goToSlide(2)"></span>
+        <span class="pagination-dot" onclick="goToSlide(3)"></span>
+        <span class="pagination-dot" onclick="goToSlide(4)"></span>
+        <span class="pagination-dot" onclick="goToSlide(5)"></span>
+        <span class="pagination-dot" onclick="goToSlide(6)"></span>
+        <span class="pagination-dot" onclick="goToSlide(7)"></span>
+        <span class="pagination-dot" onclick="goToSlide(8)"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 캐러셀 기능
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.pagination-dot');
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    // 슬라이드 변경
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+    
+    // 페이지네이션 점 변경
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    showSlide(currentSlide);
+  }
+
+  // 5초마다 다음 슬라이드로 전환
+  setInterval(nextSlide, 5000);
+  
+  // 초기 슬라이드 표시
+  showSlide(0);
+</script>
+</body>
+</html>

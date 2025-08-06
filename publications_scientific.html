@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <title>Scientific Publications - MMDL</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .publication-item {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .publication-item:first-child {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+  </style>
+  <script>
+    // 페이지 로드 시 자동으로 숫자 매기기
+    document.addEventListener('DOMContentLoaded', function() {
+      const publicationItems = document.querySelectorAll('.publication-item');
+      const totalItems = publicationItems.length;
+      
+      publicationItems.forEach((item, index) => {
+        const titleElement = item.querySelector('div:first-child');
+        if (titleElement) {
+          const currentText = titleElement.textContent;
+          // 기존 숫자 제거하고 새로운 숫자 추가
+          const newNumber = totalItems - index;
+          const newText = currentText.replace(/^\[\d+\]\s*/, `[${newNumber}] `);
+          titleElement.textContent = newText;
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+          <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+        </a>
+        <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+      </div>
+      <nav>
+        <ul class="menu">
+  
+                  <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+          <li class="dropdown">
+            <a href="#">PUBLICATIONS ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="publications_scientific.html">Scientific Publications</a></li>
+              <li><a href="publications_conferences.html">International Conferences</a></li>
+              <li><a href="publications_proceedings.html">Peer-Reviewed Proceedings</a></li>
+              <li><a href="publications_domestic.html">Domestic Peer-Reviewed Journal Articles</a></li>
+            </ul>
+          </li>
+          <li><a href="research.html">RESEARCH</a></li>
+                  <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="publication-container">
+      <div style="max-width: 1200px; margin: 40px auto; padding: 40px 24px 60px 24px;">
+        <div style="text-align: center; margin-bottom: 50px;">
+          <h1 style="color: #1a237e; font-size: 2.5rem; margin-bottom: 20px;">Scientific Publications</h1>
+        </div>
+
+        <div style="margin-bottom: 50px;">
+          <div class="publication-item">
+            <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[3] International Peer-Reviewed Journal Articles Evaluation of adhesion strength for oxide scale grown on low carbon steel</div>
+            <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Jae-Min Lee, Wooram Noh*, Chanyang Kim, Seongsik Lim, Myoung-Gyu Lee</div>
+            <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Mechanics of Advanced Materials and Structures, 30(11), 2258-2268 (2023 May 13)</div>
+            <a href="https://doi.org/10.1080/15376494.2022.2053903" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1080/15376494.2022.2053903</a>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF= 3.338, top 30%)</div>
+          </div>
+
+          <div class="publication-item">
+            <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[2] Probing the Mechanism of Friction Stir Welding with ALE Based Finite Element Simulations and Its Application to Strength Prediction of Welded Aluminum</div>
+            <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Dongjoon Myung, Wooram Noh, Ji-Hoon Kim, Jinhak Kong, Sung-Tae Hong, Myoung-Gyu Lee*</div>
+            <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Metals and Materials International, 27, 650–666 (2021 Apr.)</div>
+            <a href="https://doi.org/10.1007/s12540-020-00901-8" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1007/s12540-020-00901-8</a>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF=3.451, top 25%)</div>
+          </div>
+
+          <div class="publication-item">
+            <div style="font-size: 1.1rem; font-weight: 600; color: #1a237e; margin-bottom: 15px;">[1] Joint quality of self-piercing riveting (SPR) and mechanical behavior under the frictional effect of various rivet coatings</div>
+            <div style="font-size: 1rem; color: #666; margin-bottom: 10px; line-height: 1.6;">Md Abdul Karim, Taek-Eon Jeong, Wooram Noh, Keun-Young Park, Dong-Hyuck Kam, Cheolhee Kim, Dae-Geun Nam, Hudson Jung, Yeong-Do Park*</div>
+            <div style="font-size: 1rem; color: #333; margin-bottom: 10px; font-style: italic;">Journal of Manufacturing Processes, 58, 466-477 (2020 Oct.)</div>
+            <a href="https://doi.org/10.1016/j.jmapro.2020.08.038" style="color: #1a237e; text-decoration: none; font-size: 0.9rem;" target="_blank">https://doi.org/10.1016/j.jmapro.2020.08.038</a>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">(JCR 2021 IF=5.684, top 29%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html> 

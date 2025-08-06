@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - GKNU MMDL</title>
+  <link href="static/style.css" rel="stylesheet">
+  <style>
+    .contact-main {
+      max-width: 95%;
+      margin: 20px auto;
+      padding: 40px 40px 60px 40px;
+      background: #fff;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      min-height: calc(100vh - 40px);
+    }
+    .recruitment-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    .recruitment-content {
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #ddd;
+    }
+    .recruitment-content h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 20px;
+    }
+    .recruitment-content p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .recruitment-categories {
+      margin: 25px 0;
+    }
+    .recruitment-categories p {
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .contact-info {
+      margin-bottom: 40px;
+      padding-top: 30px;
+    }
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 25px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    .professor-info {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .professor-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 5px;
+    }
+    .professor-title {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 0;
+    }
+    .office-info {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .office-item {
+      margin-bottom: 12px;
+    }
+    .office-label {
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+    .office-detail {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .department-info {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .department-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 5px;
+    }
+    .university-name {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .address {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .email {
+      font-size: 1rem;
+      color: #000;
+      font-weight: 600;
+    }
+    .email a {
+      color: #000;
+      text-decoration: none;
+    }
+    .contact-map-section {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-top: 40px;
+    }
+    .map-container {
+      flex-shrink: 0;
+      width: 400px;
+      margin-top: 120px;
+    }
+    .contact-info-section {
+      flex: 1;
+    }
+    .map-container iframe {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      height: 300px;
+    }
+    @media (max-width: 768px) {
+      .contact-main {
+        max-width: 98%;
+        margin: 10px auto;
+        padding: 20px 16px 30px 16px;
+        min-height: calc(100vh - 20px);
+      }
+      
+      .recruitment-title, .contact-title {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+      }
+      
+      .recruitment-content h2 {
+        font-size: 1.2rem;
+        line-height: 1.4;
+      }
+      
+      .recruitment-content p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      
+      .recruitment-categories {
+        margin-top: 20px;
+      }
+      
+      .recruitment-categories p {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+      
+      .contact-map-section {
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 30px;
+      }
+      
+      .map-container {
+        width: 100%;
+        margin-top: 0;
+      }
+      
+      .map-container iframe {
+        height: 250px;
+      }
+      
+      .professor-info {
+        margin-bottom: 20px;
+      }
+      
+      .professor-name {
+        font-size: 1.4rem;
+      }
+      
+      .professor-title {
+        font-size: 1rem;
+      }
+      
+      .office-item {
+        margin-bottom: 15px;
+      }
+      
+      .office-label {
+        font-size: 0.95rem;
+      }
+      
+      .office-detail {
+        font-size: 0.9rem;
+      }
+      
+      .department-name {
+        font-size: 1rem;
+      }
+      
+      .university-name {
+        font-size: 0.9rem;
+      }
+      
+      .address {
+        font-size: 0.85rem;
+      }
+      
+      .email {
+        font-size: 0.95rem;
+      }
+      
+      /* 맨 위로 버튼 모바일 최적화 */
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .contact-main {
+        padding: 15px 12px 25px 12px;
+      }
+      
+      .recruitment-title, .contact-title {
+        font-size: 1.4rem;
+      }
+      
+      .recruitment-content h2 {
+        font-size: 1.1rem;
+      }
+      
+      .recruitment-content p {
+        font-size: 0.9rem;
+      }
+      
+      .recruitment-categories p {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
+      
+      .professor-name {
+        font-size: 1.2rem;
+      }
+      
+      .professor-title {
+        font-size: 0.9rem;
+      }
+      
+      .office-label {
+        font-size: 0.9rem;
+      }
+      
+      .office-detail {
+        font-size: 0.85rem;
+      }
+      
+      .map-container iframe {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class="contact-main">
+    <h1 class="recruitment-title">모집 공고</h1>
+    
+    <div class="recruitment-content">
+      <h2>재료 역학/설계 연구실 (지도교수: 노우람)에서 석사과정, 박사과정 대학원생, 학부생 인턴, 박사후 연구원을 모집합니다.</h2>
+      <p>본 연구실에서는 재료의 기계적 특성과 설계에 관한 연구를 수행합니다.</p>
+      <p>재료 역학 및 설계 연구에 관심 있는 분들의 많은 지원 부탁드립니다. (지원 및 문의사항은 wnoh@gknu.ac.kr 로 연락바랍니다.)</p>
+      
+      <div class="recruitment-categories">
+        <p>대학원생 (지도교수 면접 후 선발, 지원시 CV 송부)</p>
+        <p>학부생 인턴 (지도교수 면접 후 선발, 지원시 CV 송부)</p>
+        <p>박사후 연구원 (지도교수 면접 후 선발, 지원시 CV 송부)</p>
+      </div>
+    </div>
+
+    <div class="contact-map-section">
+      <div class="contact-info-section">
+        <h2 class="contact-title">CONTACT INFORMATION</h2>
+        
+        <div class="professor-info">
+          <div class="professor-name">Wooram Noh</div>
+          <div class="professor-title">Professor</div>
+        </div>
+
+        <div class="office-info">
+          <div class="office-item">
+            <div class="office-label">Prof. Office</div>
+            <div class="office-detail">Engineering 2nd Building, #4nn (공학 2호관 4nn호)</div>
+          </div>
+          <div class="office-item">
+            <div class="office-label">Student Office</div>
+            <div class="office-detail">Engineering 2nd Building, #4nn (공학 2호관 4nn호)</div>
+          </div>
+          <div class="office-item">
+            <div class="office-label">Lab</div>
+            <div class="office-detail">Engineering 2nd Building, #4nn (공학 2호관 4nn호)</div>
+          </div>
+        </div>
+
+        <div class="department-info">
+          <div class="department-name">Department of Materials Science and Engineering</div>
+          <div class="university-name">Gyeongkuk National University</div>
+          <div class="address">
+            College of Engineering, 1375 Gyeongdong-ro, Songcheon-dong, Andong-si, Gyeongsangbuk-do, Republic of Korea.
+          </div>
+        </div>
+
+        <div class="email">
+          E-mail: <a href="mailto:wnoh@gknu.ac.kr">wnoh@gknu.ac.kr</a>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps?q=국립안동대학교&amp;output=embed" 
+          width="100%" 
+          height="300" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+</div>
+
+<!-- 맨 위로 버튼 -->
+<button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+<script>
+  // 맨 위로 버튼 기능
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+  
+  // 맨 위로 스크롤 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>대학원생 소개 - GKNU MMDL</title>
+<link href="static/style.css" rel="stylesheet">
+  <style>
+    .students-main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 40px 24px 60px 24px;
+      background: #fff;
+    }
+    .students-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a237e;
+      text-align: center;
+      margin-bottom: 60px;
+      margin-top: 0px;
+      letter-spacing: 2px;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .student-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      background: #f8f9fa;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .student-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    .student-photo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .student-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1a237e;
+      margin: 0;
+      text-align: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .student-info {
+      margin-top: 12px;
+      font-size: 1rem;
+      color: #666;
+      text-align: center;
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .students-main {
+        padding: 20px 16px 40px 16px;
+        margin: 20px auto;
+      }
+      
+      .students-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+      
+      .students-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+      
+      .student-card {
+        padding: 20px;
+      }
+      
+      .student-photo {
+        width: 140px;
+        height: auto;
+        margin-bottom: 15px;
+      }
+      
+      .student-name {
+        font-size: 1.2rem;
+      }
+      
+      .student-info {
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+      
+      /* 맨 위로 버튼 모바일 최적화 */
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .students-main {
+        padding: 15px 12px 30px 12px;
+      }
+      
+      .students-title {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+      }
+      
+      .students-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .student-card {
+        padding: 15px;
+      }
+      
+      .student-photo {
+        width: 120px;
+        height: auto;
+        margin-bottom: 12px;
+      }
+      
+      .student-name {
+        font-size: 1.1rem;
+      }
+      
+      .student-info {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="https://www.gknu.ac.kr/main/index.do" target="_blank">
+        <img alt="GKNU 로고" src="static/img/gknu_logo.svg"  height="60" style="height:40px;width:auto;"/>
+      </a>
+      <h1 style="margin: 0;"><a href="index.html" style="all: unset; cursor: pointer;">GKNU MMDL</a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+
+        <li><a href="professor.html">PROFESSOR</a></li>
+        <li><a href="students.html">MEMBER</a></li>
+        <li><a href="publications.html">PUBLICATIONS</a></li>
+        <li><a href="research.html">RESEARCH</a></li>
+        <li><a href="board.html">NOTICE</a></li>
+        <li><a href="gallery.html">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="students-main">
+  <h1 class="students-title">대학원생 소개</h1>
+  
+  <div class="students-grid">
+    <div class="student-card">
+      <img src="static/img/Student_AhnYouJin.png" alt="안유진" class="student-photo">
+      <h3 class="student-name">안유진</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_Winter.png" alt="윈터" class="student-photo">
+      <h3 class="student-name">윈터</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_Eseo.png" alt="이서" class="student-photo">
+      <h3 class="student-name">이서</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_WonYoungJang.png" alt="장원영" class="student-photo">
+      <h3 class="student-name">장원영</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_JiJel.png" alt="지젤" class="student-photo">
+      <h3 class="student-name">지젤</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_Karina.png" alt="카리나" class="student-photo">
+      <h3 class="student-name">카리나</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_NingNing.png" alt="닝닝" class="student-photo">
+      <h3 class="student-name">닝닝</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_Leeds.png" alt="리즈" class="student-photo">
+      <h3 class="student-name">리즈</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+    
+    <div class="student-card">
+      <img src="static/img/Student_Gaeul.png" alt="가을" class="student-photo">
+      <h3 class="student-name">가을</h3>
+      <p class="student-info">박사과정</p>
+    </div>
+      </div>
+  </div>
+
+<!-- 맨 위로 버튼 -->
+<button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+<script>
+  // 맨 위로 버튼 기능
+  const scrollToTopBtn = document.querySelector('.scroll-to-top');
+  
+  // 스크롤 이벤트 리스너
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset < 50) {
+      scrollToTopBtn.classList.add('hide');
+    } else {
+      scrollToTopBtn.classList.remove('hide');
+    }
+  });
+  
+  // 맨 위로 스크롤 함수
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+</body>
+</html>
